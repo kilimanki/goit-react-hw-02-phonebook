@@ -2,6 +2,7 @@ import { Component } from 'react';
 import Form from './Form/Form';
 import { List } from './List/List';
 import { nanoid } from 'nanoid';
+import { Input } from './Input/Input';
 import css from './Contacts.module.css';
 class Contacts extends Component {
   state = {
@@ -32,10 +33,10 @@ class Contacts extends Component {
   alreadyAdded = ({ name }) => {
     const { contacts } = this.state;
 
-    const filtered = contacts.find(item => {
+    const dublicate = contacts.find(item => {
       return item.name.toLowerCase() === name.toLowerCase();
     });
-    return filtered;
+    return dublicate;
   };
 
   deleteContacts = id => {
@@ -60,12 +61,13 @@ class Contacts extends Component {
   }
   render() {
     const items = this.filteredContacts();
+    const { filter } = this.state;
     return (
       <>
         <Form onSubmit={this.addContacts} />
         <h2 className={css.title}>Contacts</h2>
         <div className={css.block}>
-          <input type="text" name="filter" onChange={this.handleChange} />
+          <Input handleChange={this.handleChange} filter={filter} />
           <List items={items} onclick={this.deleteContacts} />
         </div>
       </>

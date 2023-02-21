@@ -1,9 +1,8 @@
 import { Component } from 'react';
 import css from './Form.module.css';
-import initialState from './InitialState';
-
+import PropTypes from 'prop-types';
 class Form extends Component {
-  state = { ...initialState };
+  state = { name: '', number: '' };
   handleChange = e => {
     const { name, value } = e.target;
     this.setState({
@@ -17,7 +16,7 @@ class Form extends Component {
     this.reset();
   };
   reset = () => {
-    this.setState({ ...initialState });
+    this.setState(this.state);
   };
 
   render() {
@@ -59,3 +58,6 @@ class Form extends Component {
   }
 }
 export default Form;
+Form.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+};
